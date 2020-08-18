@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TesteCarrinhoCompras.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,6 +79,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Quiron.LojaVirtual.Dominio\Quiron.LojaVirtual.Dominio.csproj">
+      <Project>{cbb73f59-df86-454e-9f36-a4ad6b5488a8}</Project>
+      <Name>Quiron.LojaVirtual.Dominio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Quiron.LojaVirtual.Web\Quiron.LojaVirtual.Web.csproj">
       <Project>{ba7d9dce-7cd0-49e0-9d54-1cfea46a83e3}</Project>
       <Name>Quiron.LojaVirtual.Web</Name>
