@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidade\Carrinho.cs" />
+    <Compile Include="Entidade\Pedido.cs" />
     <Compile Include="Entidade\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\EfDbContext.cs" />
