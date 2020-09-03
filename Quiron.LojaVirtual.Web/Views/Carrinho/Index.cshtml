@@ -1,0 +1,54 @@
+﻿@model Quiron.LojaVirtual.Web.Models.CarrinhoViewModel
+
+@
+{
+    ViewBag.Title = "Quiron: Seu carrinho";
+}
+
+<style>
+
+    #carrinhoTable td {
+        vertical-align: middle;
+    }
+</style>
+
+<h2>Seu Carrinho</h2>
+
+<table id="carrinhoTable" class="table">
+    <thead>
+        <tr>
+            <th>Quantidade</th>
+            <th>Produto</th>
+            <th class="text-right">Preço</th>
+            <th class="text-right">SubTotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Carrinho.ItensCarrinho)
+        {
+        <tr>
+            <td class="text-center">@item.Quantidade</td>
+            <td class="text-center">@item.Produto.Nome</td>
+            <td class="text-right">@item.Produto.Preco.ToString("c")</td>
+            <td class="text-right">@((item.Quantidade * item.Produto.Preco).ToString("c"))</td>
+            <td>
+                @using (Html.BeginForm("Remover", "Carrinho"))
+                {
+                    @Html.Hidden("ProdutoId", item.Produto.ProdutoId)
+                    @Html.HiddenFor(x => x.ReturnUrl) 
+                    <input class="btn btn-sm btn-warning" type="submit" value="Remover" />
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.Carrinho.ObterValorTotal().ToString("c");
+            </td>
+        </tr>
+    </tfoot>
+
+</table>
