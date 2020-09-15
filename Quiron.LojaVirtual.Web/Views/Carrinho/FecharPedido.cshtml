@@ -8,6 +8,7 @@
 
 <p>Digite suas informações abaixo</p>
 
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary()
@@ -21,43 +22,21 @@
     
     <h3>Dados para entrega</h3>
 
-    <div class="form-group">
-        <label>Cep:</label>
-        @Html.TextBoxFor(x => x.Cep, new { @class = "form-control" })
-    </div>
+    foreach (var property in ViewData.ModelMetadata.Properties)
+    {
+        if (property.PropertyName != "NomeCliente" && property.PropertyName != "EmbrulhaPresente")
+        {
+            <div class="form-group">
 
-    <div class="form-group">
-        <label>Endereço:</label>
-        @Html.TextBoxFor(x => x.Endereco, new { @class = "form-control" })
-    </div>
+                <label>
+                    @(property.DisplayName ?? property.PropertyName)
+                </label>
 
-    <div class="form-group">
-        <label>Complemento:</label>
-        @Html.TextBoxFor(x => x.Complemento, new { @class = "form-control" })
-    </div>
+                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
 
-
-    <div class="form-group">
-        <label>Cidade:</label>
-        @Html.TextBoxFor(x => x.Cidade, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
-        <label>Bairro:</label>
-        @Html.TextBoxFor(x => x.Bairro, new { @class = "form-control" })
-    </div>
-
-
-    <div class="form-group">
-        <label>Bairro:</label>
-        @Html.TextBoxFor(x => x.Estado, new { @class = "form-control" })
-    </div>
-
-
-    <div class="form-group">
-        <label>E-mail:</label>
-        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
-    </div>
+            </div>
+        }
+    }
 
     <h3>Opções</h3>
     <div class="checkbox">
@@ -71,3 +50,70 @@
 }
 
 
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        function limpa_formulario_cep() {
+            $('#Endereco').val('');
+            $('#Bairro').val('');
+            $('#Cidade').val('');
+            $('#Estado').val('');
+        }
+
+        $('#Cep').change(function (e) {
+            e.preventDefault();
+
+            limpa_formulario_cep();
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = $(this).val().replace(/\D/g, '');
+
+            if (cep != "")
+            {
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if (validacep.test(cep))
+                {
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    $('#Endereco').val('...');
+                    $('#Bairro').val('...');
+                    $('#Cidade').val('...');
+                    $('#Estado').val('...');
+
+                    //Consulta o webservice viacep.com.br/
+                    $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                        if (!("erro" in dados)) {
+                            //Atualiza os campos com os valores da consulta.
+                            $("#Endereco").val(dados.logradouro);
+                            $("#Bairro").val(dados.bairro);
+                            $("#Cidade").val(dados.localidade);
+                            $("#Estado").val(dados.uf);
+                        } //end if.
+                        else {
+                            //CEP pesquisado não foi encontrado.
+                            limpa_formulario_cep();
+                            alert("CEP não encontrado.");
+                        }
+                    });
+                }
+                else
+                {
+                    //cep é inválido.
+                    limpa_formulario_cep();
+                    alert("Formato de CEP inválido.");
+                }
+
+            }
+
+           
+        });
+
+    });
+
+    
+</script>
