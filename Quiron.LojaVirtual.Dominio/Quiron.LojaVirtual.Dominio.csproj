@@ -73,6 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidade\Carrinho.cs" />
+    <Compile Include="Entidade\EmailConfiguracoes.cs" />
+    <Compile Include="Entidade\EmailProcessarPedido.cs" />
     <Compile Include="Entidade\Pedido.cs" />
     <Compile Include="Entidade\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
