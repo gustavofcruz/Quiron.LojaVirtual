@@ -111,6 +111,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\Administrativo\Views\web.config" />
+    <Content Include="Areas\Administrativo\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Shared\_AdministrativoLayout.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Produto\Index.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Produto\Alterar.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -128,6 +133,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Administrativo\AdministrativoAreaRegistration.cs" />
+    <Compile Include="Areas\Administrativo\Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\CarrinhoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
@@ -165,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administrativo\Data\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Quiron.LojaVirtual.Dominio\Quiron.LojaVirtual.Dominio.csproj">
